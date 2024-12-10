@@ -41,6 +41,8 @@ export const Login = ({ setSelected }: Props) => {
           try {
                await login(data).unwrap()
                await triggerCurrentQuery().unwrap()
+               localStorage.removeItem(`dataRegistration`)
+               localStorage.removeItem(`expirationTimestamp`)
                navigate("/")
           } catch (err) {
                if (hasErrorField(err)) {

@@ -71,6 +71,13 @@ export const userApi = api.injectEndpoints({
                     method: "GET",
                }),
           }),
+
+          getById: builder.query<User, number>({
+               query: (id) => ({
+                    url: `user/${id}`,
+                    method: "GET",
+               }),
+          }),
      }),
 })
 

@@ -5,6 +5,7 @@ import {
      selectIsAuthenticated,
 } from "../../../features/user/userSlice"
 import { useEffect } from "react"
+import { NavBar } from "./nav-bar"
 
 export const Layout = () => {
 
@@ -20,6 +21,7 @@ export const Layout = () => {
 
      return (
           <>
+               <NavBar />
                <Container>
                     <div className="flex-1 p-4">
                          <Outlet />
