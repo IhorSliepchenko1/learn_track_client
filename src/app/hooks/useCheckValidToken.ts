@@ -5,10 +5,11 @@ import { useMemo } from "react";
 type DecodeToken = {
      exp: number
      iat: number
-     id: number
-     email: string
-     role: string
-     name: string
+     id: number,
+     role: string,
+     name: string,
+     email: string,
+     verification_status: boolean
      avatar_url: string
 }
 
@@ -23,10 +24,11 @@ export const useCheckValidToken = () => {
                     exp: 0,
                     iat: 0,
                     id: 0,
-                    email: '',
                     role: '',
                     name: '',
-                    avatar_url: ''
+                    email: '',
+                    verification_status: false,
+                    avatar_url: '',
                }
           }
      }, [token])
