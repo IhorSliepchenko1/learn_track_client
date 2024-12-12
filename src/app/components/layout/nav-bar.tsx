@@ -1,45 +1,24 @@
-import { useDispatch } from "react-redux";
-import { Button, useDisclosure } from "@nextui-org/react";
 import { logout } from "../../../features/user/userSlice";
-import { Avatar } from "@nextui-org/react";
 import { useCheckValidToken } from "../../hooks/useCheckValidToken";
 import { BASE_URL } from "../../../constants";
-import { MdOutlineFileUpload } from "react-icons/md";
-import styled from 'styled-components';
+import { MdOutlineFileDownload } from "react-icons/md";
 import { ChangeAvatarModals } from "../modals/change-avatar-modals";
+import { IoIosLogOut } from "react-icons/io";
+import { MdDarkMode } from "react-icons/md";
+import { MdOutlineLightMode } from "react-icons/md";
 
-const ImageSlot = styled.div`
-    position: relative;
-
-    &:hover  {
-    span {
-        display: block;
-        }
-
-     &::after {
-        position: absolute;
-        content: '';
-        height: 100%;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.445);
-        border-radius: 50%;
-        z-index: 999;
-        top: 0;
-        left: 0;
-        cursor: pointer;
-    }
-  }`;
-
-const Span = styled.span`
-    position: absolute;
-    z-index: 9999;
-    top: 30%;
-    right: 30%;
-    color: black;
-    cursor: pointer;
-    display: none;
-`;
-
+import {
+     useDisclosure,
+     Chip,
+     Divider,
+     Dropdown,
+     DropdownTrigger,
+     DropdownMenu,
+     DropdownItem,
+     Avatar,
+} from "@nextui-org/react";
+import { useCreateContext } from "../../context-provider/context-provider";
+import { useDispatch } from "react-redux";
 
 
 export const NavBar = () => {
@@ -51,19 +30,36 @@ export const NavBar = () => {
           onOpen();
      };
 
+     const { theme, toggleTheme } = useCreateContext()
 
      return (
-          <header className="flex gap-3 justify-end p-3 items-center">
-               <ChangeAvatarModals isOpen={isOpen} onClose={onClose} />
-               <ImageSlot onClick={() => handleOpen()}>
-                    <Span>
-                         <MdOutlineFileUpload />
-                    </Span>
-                    <Avatar isBordered radius="full" src={`${BASE_URL}/${decoded.avatar_url}`} />
-               </ImageSlot>
-               <Button color="primary" variant="bordered" onClick={() => dispatch(logout())}>
-                    Выйти
-               </Button>
-          </header>
+          <>
+               <div className={`flex ${decoded.role === `ADMIN` ? `justify-between` : `justify-end`} items-center p-2`}>
+                    {decoded.role === `ADMIN` && <Chip color="success">Администратор</Chip>}
+                    <ChangeAvatarModals isOpen={isOpen} onClose={onClose} />
+
+                    <Dropdown className={`${theme} text-foreground-500`}>
+                         <DropdownTrigger>
+                              <div className="flex flex-row-reverse items-center gap-2 cursor-pointer">
+                                   <Avatar as="button" className="transition-transform" radius="full" src={`${BASE_URL}/${decoded.avatar_url}`} />
+                                   <h2 style={{ textAlign: `center` }}>{decoded.name}</h2>
+                              </div>
+                         </DropdownTrigger>
+
+                         <DropdownMenu aria-label="Profile Actions" variant="flat">
+                              <DropdownItem key="change-theme" endContent={theme === `dark` ? <MdOutlineLightMode /> : <MdDarkMode />} onClick={() => toggleTheme()}>
+                                   Сменить тему
+                              </DropdownItem>
+                              <DropdownItem key="change-image" onClick={() => handleOpen()} endContent={<MdOutlineFileDownload />}>
+                                   Сменить фото
+                              </DropdownItem>
+                              <DropdownItem key="logout" onClick={() => dispatch(logout())} endContent={<IoIosLogOut />}>
+                                   Выйти
+                              </DropdownItem>
+                         </DropdownMenu>
+                    </Dropdown>
+               </div>
+               <Divider />
+          </>
      )
 }

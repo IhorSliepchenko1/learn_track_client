@@ -7,6 +7,7 @@ import { AuthGuard } from './features/authGuard'
 import { NextUIProvider } from '@nextui-org/react'
 import { Auth } from './pages/auth'
 import { Layout } from './app/components/layout/layout'
+import { ContextProvider } from './app/context-provider/context-provider'
 
 const container = document.getElementById("root")
 
@@ -33,11 +34,11 @@ if (container) {
   root.render(
     <Provider store={store}>
       <NextUIProvider>
-        <main className={`dark text-foreground bg-background h-screen`}>
+        <ContextProvider>
           <AuthGuard>
             <RouterProvider router={router} />
           </AuthGuard>
-        </main>
+        </ContextProvider>
       </NextUIProvider>
     </Provider>,
   )

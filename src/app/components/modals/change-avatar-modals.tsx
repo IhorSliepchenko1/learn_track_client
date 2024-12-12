@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "../error-message";
 import { useLazyCheckQuery, useUpdateUserMutation } from "../../services/userApi";
 import { useCheckValidToken } from "../../hooks/useCheckValidToken";
+import { useCreateContext } from "../../context-provider/context-provider";
 
 type Props = {
      isOpen: boolean
@@ -20,6 +21,7 @@ type Props = {
 
 
 export const ChangeAvatarModals = ({ isOpen, onClose }: Props) => {
+     const { theme } = useCreateContext()
      const [selectedFile, setSelectedFile] = useState<File | null>(null)
      const [error, setError] = useState("")
      const { decoded } = useCheckValidToken()
@@ -67,33 +69,28 @@ export const ChangeAvatarModals = ({ isOpen, onClose }: Props) => {
      }
 
      return (
-          <>
-               <Modal className={`dark text-foreground-500 modal`} backdrop="blur" isOpen={isOpen} onClose={onClose}>
-                    <ModalContent>
-                         {(onClose) => (
-                              <>
-                                   <form onSubmit={handleSubmit(onSubmit)}>
-
-                                        <ModalHeader className="flex flex-col gap-1">Сменить аватар</ModalHeader>
-                                        <ModalBody>
-                                             <input type="file" name="img" onChange={handleFileChange} />
-
-                                             <ErrorMessage error={error} setError={setError} />
-                                        </ModalBody>
-                                        <ModalFooter className="flex justify-between">
-                                             <Button color="danger" onPress={onClose}>
-                                                  Закрыть
-                                             </Button>
-                                             <Button color="primary" type="submit">
-                                                  Отправить
-                                             </Button>
-                                        </ModalFooter>
-                                   </form>
-                              </>
-                         )}
-                    </ModalContent>
-               </Modal >
-
-          </>
+          <Modal className={`${theme} text-foreground-500 modal`} backdrop="blur" isOpen={isOpen} onClose={onClose}>
+               <ModalContent>
+                    {(onClose) => (
+                         <>
+                              <form onSubmit={handleSubmit(onSubmit)}>
+                                   <ModalHeader className="flex flex-col gap-1">Сменить аватар</ModalHeader>
+                                   <ModalBody>
+                                        <input type="file" name="img" onChange={handleFileChange} />
+                                        <ErrorMessage error={error} setError={setError} />
+                                   </ModalBody>
+                                   <ModalFooter className="flex justify-between">
+                                        <Button color="danger" onPress={onClose}>
+                                             Закрыть
+                                        </Button>
+                                        <Button color="primary" type="submit">
+                                             Подтвердить
+                                        </Button>
+                                   </ModalFooter>
+                              </form>
+                         </>
+                    )}
+               </ModalContent>
+          </Modal >
      );
 };
