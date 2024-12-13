@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom"
 import { ErrorMessage } from "../../app/components/error-message"
 import { hasErrorField } from "../../utils/has-error-field"
+import { ChangeTypeButton } from "../../app/components/buttons/change-type-button"
 
 type Login = {
      email: string
@@ -35,6 +36,7 @@ export const Login = ({ setSelected }: Props) => {
      const [login, { isLoading }] = useLoginMutation()
      const navigate = useNavigate()
      const [error, setError] = useState("")
+     const [isVisiblePass, setIsVisiblePass] = useState(false);
      const [triggerCurrentQuery] = useLazyCheckQuery()
 
      const onSubmit = async (data: Login) => {
@@ -61,14 +63,21 @@ export const Login = ({ setSelected }: Props) => {
                     required="Обязательное поле"
                />
 
+
+
                <Input
                     control={control}
                     name="password"
-                    label="Пароль"
-                    type="password"
+                    endContent={
+                         <ChangeTypeButton
+                              isVisible={isVisiblePass}
+                              setIsVisible={setIsVisiblePass}
+                         />
+                    }
                     variant="underlined"
                     required="Обязательное поле"
-               />
+                    type={isVisiblePass ? "text" : "password"}
+                    label={"Пароль"} />
 
                <ErrorMessage error={error} setError={setError} />
 

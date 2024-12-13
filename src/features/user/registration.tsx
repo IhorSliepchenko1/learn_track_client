@@ -6,6 +6,7 @@ import { ErrorMessage } from "../../app/components/error-message";
 import { hasErrorField } from "../../utils/has-error-field";
 import { Registration as TypeRegistration } from "../../app/types";
 import { useRegisterMutation, useSendCodeMutation } from "../../app/services/userApi";
+import { ChangeTypeButton } from "../../app/components/buttons/change-type-button";
 
 type Props = {
      setSelected: (value: string) => void;
@@ -25,7 +26,7 @@ export const Registration = ({ setSelected }: Props) => {
 
      const [registration, { isLoading }] = useRegisterMutation();
      const [send, { isLoading: loadingCheckMail }] = useSendCodeMutation();
-
+     const [isVisiblePass, setIsVisiblePass] = useState(false);
      const [error, setError] = useState("");
      const [codeInput, setCodeInput] = useState(false);
      const [countdown, setCountdown] = useState<number | null>(null);
@@ -140,11 +141,16 @@ export const Registration = ({ setSelected }: Props) => {
                     <Input
                          control={control}
                          name="password"
-                         label="Пароль"
-                         type="password"
+                         endContent={
+                              <ChangeTypeButton
+                                   isVisible={isVisiblePass}
+                                   setIsVisible={setIsVisiblePass}
+                              />
+                         }
                          variant="underlined"
                          required="Обязательное поле"
-                    />
+                         type={isVisiblePass ? "text" : "password"}
+                         label={"Пароль"} />
 
                     {codeInput && (
                          <Input

@@ -41,32 +41,18 @@ export const Input = ({
                     pattern: {
                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                          message: "Введите корректный email адрес",
-                    },
+                    }
                }),
           },
      })
 
 
-     const [isVisible, setIsVisible] = useState(false);
-     const toggleVisibility = () => setIsVisible(!isVisible);
-
-     const ChangeType = () => {
-          return (
-               <button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
-                    {isVisible ? (
-                         <FaEye className="text-2xl text-default-400 pointer-events-none" />
-                    ) : (
-                         <FaEyeSlash className="text-2xl text-default-400 pointer-events-none" />
-                    )}
-               </button>
-          )
-     }
 
      return (
           <NextInput
                id={name}
                label={label}
-               type={isVisible ? "text" : type}
+               type={type}
                placeholder={placeholder}
                value={field.value}
                name={field.name}
@@ -77,7 +63,7 @@ export const Input = ({
                color={color}
                disabled={disabled}
                variant={variant}
-               endContent={type === `password` ? <ChangeType /> : endContent}
+               endContent={endContent}
           />
      )
 }

@@ -1,8 +1,8 @@
 import { logout } from "../../../features/user/userSlice";
 import { useCheckValidToken } from "../../hooks/useCheckValidToken";
 import { BASE_URL } from "../../../constants";
-import { MdOutlineFileDownload } from "react-icons/md";
-import { ChangeAvatarModals } from "../modals/change-avatar-modals";
+import { FaRegUserCircle } from "react-icons/fa";
+import { ChangeUserInfoModals } from "../modals/change-user-info-modals";
 import { IoIosLogOut } from "react-icons/io";
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
@@ -36,7 +36,7 @@ export const NavBar = () => {
           <>
                <div className={`flex ${decoded.role === `ADMIN` ? `justify-between` : `justify-end`} items-center p-2`}>
                     {decoded.role === `ADMIN` && <Chip color="success">Администратор</Chip>}
-                    <ChangeAvatarModals isOpen={isOpen} onClose={onClose} />
+                    <ChangeUserInfoModals isOpen={isOpen} onClose={onClose} />
 
                     <Dropdown className={`${theme} text-foreground-500`}>
                          <DropdownTrigger>
@@ -50,8 +50,8 @@ export const NavBar = () => {
                               <DropdownItem key="change-theme" endContent={theme === `dark` ? <MdOutlineLightMode /> : <MdDarkMode />} onClick={() => toggleTheme()}>
                                    Сменить тему
                               </DropdownItem>
-                              <DropdownItem key="change-image" onClick={() => handleOpen()} endContent={<MdOutlineFileDownload />}>
-                                   Сменить фото
+                              <DropdownItem key="change-image" onClick={() => handleOpen()} endContent={<FaRegUserCircle />}>
+                                   Редактировать
                               </DropdownItem>
                               <DropdownItem key="logout" onClick={() => dispatch(logout())} endContent={<IoIosLogOut />}>
                                    Выйти

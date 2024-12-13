@@ -7,7 +7,7 @@ type Props = {
 
 
 export const ChangeTypeButton = ({ isVisible, setIsVisible }: Props) => {
-     const toggleVisibility = () => setIsVisible(!isVisible);
+     const toggleVisibility = () => setIsVisible(!isVisible)
 
      return (
           <button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
