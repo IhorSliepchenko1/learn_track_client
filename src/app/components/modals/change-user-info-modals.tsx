@@ -169,7 +169,7 @@ export const ChangeUserInfoModals = ({ isOpen, onClose }: Props) => {
                <ModalContent>
                     {(onClose) => (
                          <>
-                              <form onSubmit={handleSubmit(codeInput ? onSubmit : onSendCode)}>
+                              <form onSubmit={handleSubmit(emailValue ? onSendCode : onSubmit)}>
                                    <ModalHeader className="flex flex-col gap-1">Редактировать пользователя</ModalHeader>
                                    <ModalBody>
                                         <Input
@@ -236,7 +236,7 @@ export const ChangeUserInfoModals = ({ isOpen, onClose }: Props) => {
                                         </Button>
 
                                         {!codeInput && emailValue ? (
-                                             <Button type="submit" isLoading={loadingCheckMail}>
+                                             <Button type="submit" isLoading={loadingCheckMail} >
                                                   Отправить код
                                              </Button>
                                         ) : <Button color="primary" type="submit" isLoading={isLoading}>
