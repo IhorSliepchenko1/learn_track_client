@@ -8,6 +8,7 @@ import { NextUIProvider } from '@nextui-org/react'
 import { Auth } from './pages/auth'
 import { Layout } from './app/components/layout/layout'
 import { ContextProvider } from './app/context-provider/context-provider'
+import { Course } from './pages/course'
 
 const container = document.getElementById("root")
 
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <p>hello</p>,
+        element: <Course />,
       },
     ],
   },

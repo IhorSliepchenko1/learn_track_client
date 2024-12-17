@@ -40,37 +40,4 @@ $mobile-sm: 320px;
 
 * {
      font-family: "Fira Sans", sans-serif;
-
-}
-
-.test {
-     position: relative;
-
-     .image-slot {
-          position: absolute;
-          z-index: 9999;
-          top: 30%;
-          right: 30%;
-          color: black;
-          cursor: pointer;
-          display: none;
-     }
-
-     &:hover {
-          .image {
-               display: flex;
-          }
-
-          &::after {
-               position: absolute;
-               content: '';
-               height: 100%;
-               width: 100%;
-               background: rgba(255, 255, 255, 0.445);
-               border-radius: 50%;
-               z-index: 999;
-               top: 0;
-               cursor: pointer;
-          }
-     }
 }
