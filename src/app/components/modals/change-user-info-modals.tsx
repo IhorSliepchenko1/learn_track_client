@@ -15,6 +15,7 @@ import { useCheckValidToken } from "../../hooks/useCheckValidToken";
 import { useCreateContext } from "../../context-provider/context-provider";
 import { Input } from "../input";
 import { ChangeTypeButton } from "../buttons/change-type-button";
+import { useHandleFileChange } from "../../hooks/useHandleFileChange";
 
 type Props = {
      isOpen: boolean
@@ -31,13 +32,7 @@ type UpdateData = {
 }
 
 export const ChangeUserInfoModals = ({ isOpen, onClose }: Props) => {
-     const { theme } = useCreateContext()
-     const [selectedFile, setSelectedFile] = useState<File | null>(null)
-     const [error, setError] = useState("")
-     const { decoded } = useCheckValidToken()
-
      const {
-
           handleSubmit,
           reset,
           control,
@@ -56,14 +51,24 @@ export const ChangeUserInfoModals = ({ isOpen, onClose }: Props) => {
           },
      })
      const emailValue = watch("email");
+
+     const { theme } = useCreateContext()
+     const [selectedFile, setSelectedFile] = useState<File | null>(null)
+     const { handleFileChange } = useHandleFileChange(setSelectedFile)
+
+     const [error, setError] = useState("")
      const [isVisibleOldPass, setIsVisibleOldPass] = useState(false);
      const [isVisibleNewPass, setIsVisibleNewPass] = useState(false);
-     const [send, { isLoading: loadingCheckMail }] = useSendCodeMutation();
-     const [update, { isLoading }] = useUpdateUserMutation()
      const [codeInput, setCodeInput] = useState(false);
      const [countdown, setCountdown] = useState<number | null>(null);
      const [intervalId, setIntervalId] = useState<number | null>(null);
+
+
+     const [send, { isLoading: loadingCheckMail }] = useSendCodeMutation();
+     const [update, { isLoading }] = useUpdateUserMutation()
      const [triggerGet] = useLazyCheckQuery()
+     const { decoded } = useCheckValidToken()
+
 
      const startCountdown = () => {
           const timer = setInterval(() => {
@@ -135,11 +140,6 @@ export const ChangeUserInfoModals = ({ isOpen, onClose }: Props) => {
           }
      }, [setValue]);
 
-     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-          if (e.target.files !== null) {
-               setSelectedFile(e.target.files[0])
-          }
-     }
 
      const onSubmit = async (data: UpdateData) => {
           try {
@@ -157,7 +157,6 @@ export const ChangeUserInfoModals = ({ isOpen, onClose }: Props) => {
                onClose()
 
           } catch (err) {
-
                if (hasErrorField(err)) {
                     setError(err.data.message)
                }
@@ -225,7 +224,8 @@ export const ChangeUserInfoModals = ({ isOpen, onClose }: Props) => {
                                              type={isVisibleNewPass ? "text" : "password"}
                                              label={"Новый пароль"} />
                                         <div className="flex justify-between">
-                                             <p>сменить аватар:</p><input type="file" name="img" onChange={handleFileChange} />
+                                             <p>сменить аватар:</p>
+                                             <input type="file" name="img" onChange={handleFileChange} />
                                         </div>
 
                                         <ErrorMessage error={error} setError={setError} />

@@ -1,24 +1,21 @@
-import { Course, User } from "../types";
+import { Course } from "../types";
 import { api } from "./api"
 
 export const courseApi = api.injectEndpoints({
      endpoints: (builder) => ({
-          addCourse: builder.mutation<
-               { course: Course },
-               { title: string, description: string }
-          >({
-               query: (data) => ({
+          addCourse: builder.mutation<Course, { courseData: FormData }>({
+               query: ({ courseData }) => ({
                     url: "course/add",
                     method: "POST",
-                    body: data,
+                    body: courseData,
                }),
           }),
 
-          updateCourse: builder.mutation<Course, { data: { title: string, description: string }, id: number }>({
-               query: ({ data, id }) => ({
+          updateCourse: builder.mutation<Course, { courseData: FormData; id: number }>({
+               query: ({ courseData, id }) => ({
                     url: `/course/${id}`,
                     method: "PUT",
-                    body: data,
+                    body: courseData,
                }),
           }),
 
@@ -49,9 +46,9 @@ export const courseApi = api.injectEndpoints({
                }),
           }),
 
-          getByIdCourse: builder.query<User, number>({
+          getByIdCourse: builder.query<Course, number>({
                query: (id) => ({
-                    url: `user/${id}`,
+                    url: `course/${id}`,
                     method: "GET",
                }),
           }),
@@ -65,6 +62,7 @@ export const {
      useLazyGetAllCourseQuery,
      useLazyGetByIdCourseQuery,
      useDeleteCourseMutation,
+     useUpdateCourseMutation
 } = courseApi
 
 export const { endpoints: { addCourse, updateCourse, getAllCourse, getByIdCourse, deleteCourse } } = courseApi

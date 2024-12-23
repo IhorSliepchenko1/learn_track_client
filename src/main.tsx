@@ -9,6 +9,7 @@ import { Auth } from './pages/auth'
 import { Layout } from './app/components/layout/layout'
 import { ContextProvider } from './app/context-provider/context-provider'
 import { Course } from './pages/course'
+import { CourseId } from './pages/course-id'
 
 const container = document.getElementById("root")
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Course />,
+      },
+      {
+        path: "/course/:id",
+        element: <CourseId />,
       },
     ],
   },
@@ -48,3 +53,9 @@ if (container) {
     "Root element with ID 'root' was not found in the document. Ensure there is a corresponding HTML element with the ID 'root' in your HTML file.",
   )
 }
+
+
+// {
+//   "email": "igorslepchenko.cc@gmail.com",
+//     "password": "24292429"
+// }

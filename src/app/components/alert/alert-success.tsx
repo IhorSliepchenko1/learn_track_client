@@ -1,13 +1,8 @@
-import { Alert } from 'antd';
+import { Alert } from "@nextui-org/react";
 import './alert.scss'
 
-export const AlertSuccess = ({ message, classFrames, type }: { classFrames: string, message: string, type: "error" | "success" | "warning" | "info" | undefined }) => {
+export const AlertSuccess = ({ message, classFrames, color }: { classFrames: string, message: string, color: "default" | "primary" | "secondary" | "success" | "warning" | "danger" }) => {
      return (
-          <Alert
-               className={`alert ${classFrames}`}
-               message={message}
-               type={type}
-               showIcon
-          />
+          <Alert color={color} title={message} className={`alert ${classFrames}`} />
      )
 }

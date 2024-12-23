@@ -1,9 +1,11 @@
+import { Alert } from "@nextui-org/react";
+import { useEffect } from 'react';
+
 type Props = {
      error: string
      setError: React.Dispatch<React.SetStateAction<string>>
 }
-import { Alert } from 'antd';
-import { useEffect } from 'react';
+
 
 export const ErrorMessage = ({ error = ``, setError }: Props) => {
 
@@ -17,6 +19,7 @@ export const ErrorMessage = ({ error = ``, setError }: Props) => {
           }
      }, [error]);
 
-     return error && <div className='p-2'><Alert message={error} type="error" showIcon /></div>
+     return error && <Alert title={error} color="danger" />
+
 
 }

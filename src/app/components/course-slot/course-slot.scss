@@ -1,0 +1,61 @@
+.progress-lessons-container {
+     max-width: 600px;
+     min-width: 350px;
+     display: flex;
+     border-radius: 7px;
+
+     &_completed,
+     &_remainder {
+          display: block;
+          height: 7px;
+
+          position: relative;
+     }
+
+     &_completed {
+          background-color: green;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+     }
+
+     &_remainder {
+          background-color: gray;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+     }
+}
+
+.title-progress {
+     font-size: 10px;
+}
+
+.progress-tests-container {
+     max-width: 600px;
+     min-width: 350px;
+     display: flex;
+     border-radius: 7px;
+
+     &_incorrect,
+     &_remainder,
+     &_correct {
+          display: block;
+          height: 7px;
+     }
+
+     &_incorrect {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+     }
+
+     &_remainder {
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+     }
+}
+
+.details-block {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 100%;
+}

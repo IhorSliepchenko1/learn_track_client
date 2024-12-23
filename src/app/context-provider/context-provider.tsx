@@ -27,7 +27,7 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
 
      return (
           <CreateContext.Provider value={{ theme, toggleTheme }}>
-               <main className={`${theme} text-foreground bg-background h-screen`}>
+               <main className={`${theme} text-foreground bg-background`}>
                     {children}
                </main>
           </CreateContext.Provider>

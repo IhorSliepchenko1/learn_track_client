@@ -10,7 +10,7 @@ import { MdOutlineLightMode } from "react-icons/md";
 import {
      useDisclosure,
      Chip,
-     Divider,
+     // Divider,
      Dropdown,
      DropdownTrigger,
      DropdownMenu,
@@ -50,16 +50,16 @@ export const NavBar = () => {
                               <DropdownItem key="change-theme" endContent={theme === `dark` ? <MdOutlineLightMode /> : <MdDarkMode />} onClick={() => toggleTheme()}>
                                    Сменить тему
                               </DropdownItem>
-                              <DropdownItem key="change-image" onClick={() => handleOpen()} endContent={<FaRegUserCircle />}>
+                              <DropdownItem key="change-image" onPress={() => handleOpen()} endContent={<FaRegUserCircle />}>
                                    Редактировать
                               </DropdownItem>
-                              <DropdownItem key="logout" onClick={() => dispatch(logout())} endContent={<IoIosLogOut />}>
+                              <DropdownItem key="logout" onPress={() => dispatch(logout())} endContent={<IoIosLogOut />}>
                                    Выйти
                               </DropdownItem>
                          </DropdownMenu>
                     </Dropdown>
                </div>
-               <Divider />
+               {/* <Divider /> */}
           </>
      )
 }
