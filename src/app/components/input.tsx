@@ -1,14 +1,10 @@
 import { Input as NextInput } from "@nextui-org/react"
-import { useState } from "react"
 import { Control, useController } from "react-hook-form"
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
 type Props = {
      name: string
      label: string
      placeholder?: string
      type?: string
-     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      control: Control<any>
      required?: string
      endContent?: JSX.Element

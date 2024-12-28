@@ -4,7 +4,6 @@ import { Textarea } from "@nextui-org/react";
 type Props = {
      name: string;
      control: any;
-     rules?: any;
      errors: any;
      label: string;
      maxLength?: number;
@@ -13,7 +12,6 @@ type Props = {
 export const TextArea = ({
      name,
      control,
-     rules,
      errors,
      label,
      maxLength,
@@ -22,7 +20,7 @@ export const TextArea = ({
           <Controller
                name={name}
                control={control}
-               rules={rules}
+               rules={{ required: "Обязательное поле" }}
                render={({ field, fieldState: { invalid } }) => (
                     <Textarea
                          {...field}

@@ -1,12 +1,14 @@
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
-import { Accordion, AccordionItem, Avatar, Button, Divider, Spinner } from "@nextui-org/react";
+import { Accordion, AccordionItem, Avatar, Button, Divider, Spinner, useDisclosure } from "@nextui-org/react";
 import { useCheckValidToken } from "../../hooks/useCheckValidToken";
 import { useCheckProgressQuery } from "../../services/progressApi";
 import { useMemo } from "react";
 import './course-slot.scss'
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../constants";
+import { useDeleteCourseMutation, useLazyGetAllCourseQuery } from "../../services/courseApi";
+import { ModalDelete } from "../modals/delete";
 
 type Props = {
      title: string
@@ -18,7 +20,16 @@ type Props = {
 export const CourseSlot = ({ title, course_id, image, description }: Props) => {
      const { decoded } = useCheckValidToken()
      const { data, isLoading } = useCheckProgressQuery({ course_id })
+     const [triggerCourse] = useLazyGetAllCourseQuery()
+     const [deleteCourseId] = useDeleteCourseMutation()
      const navigate = useNavigate()
+
+     const { onOpen, onOpenChange, isOpen } = useDisclosure();
+
+     const deleteCourse = async () => {
+          await deleteCourseId(course_id).unwrap()
+          await triggerCourse().unwrap()
+     }
 
      const completedLessonsPercentage = useMemo(() => {
           if (data) {
@@ -45,6 +56,7 @@ export const CourseSlot = ({ title, course_id, image, description }: Props) => {
 
 
 
+
      return (
           <>
                <div className="py-1">
@@ -61,7 +73,7 @@ export const CourseSlot = ({ title, course_id, image, description }: Props) => {
                     </Accordion>
                     <div className="flex justify-between items-center">
                          <div className="details-block">
-                              <div>
+                              <div className="flex flex-col gap-2">
                                    <div>
                                         <div className="flex justify-between title-progress">
                                              <div className="flex items-center gap-1">
@@ -107,7 +119,7 @@ export const CourseSlot = ({ title, course_id, image, description }: Props) => {
                                    <Button size="sm" color="primary" variant="bordered">пройти курс</Button>
                                    {decoded.role === `ADMIN` &&
                                         <>
-                                             <Button size="sm" startContent={<MdDelete />} color="danger" variant="bordered">delete</Button>
+                                             <Button size="sm" startContent={<MdDelete />} color="danger" variant="bordered" onPress={onOpen}>delete</Button>
                                              <Button size="sm" startContent={<MdEdit />} color="warning" variant="bordered" onPress={() => navigate(`/course/${course_id}`)}>update</Button>
                                         </>}
                               </div>
@@ -115,7 +127,10 @@ export const CourseSlot = ({ title, course_id, image, description }: Props) => {
                     </div>
                </div>
                <Divider />
-
+               <ModalDelete
+                    isOpen={isOpen}
+                    onOpenChange={onOpenChange}
+                    deleteItem={deleteCourse} />
           </>
      )
 }

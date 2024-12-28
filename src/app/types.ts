@@ -26,3 +26,25 @@ export type Course = {
      createdAt: Date;
      updatedAt: Date;
 }
+
+export type Lessons = {
+     id: number;
+     course_id: number;
+     title: string;
+     content: string;
+     createdAt: Date;
+     updatedAt: Date;
+}
+
+// типы для добавления курса и урока
+
+export type CourseData = {
+     title: string,
+     description: string,
+}
+
+export type LessonsData = {
+     title: string,
+     content: string,
+     course_id?: string
+}
