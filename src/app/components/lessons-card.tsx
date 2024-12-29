@@ -30,7 +30,7 @@ export const LessonsCard = ({ title, number, content, lessons_id }: Props) => {
           mode: "onChange",
           reValidateMode: "onBlur",
           defaultValues: {
-               title: '',
+               title,
                content: "",
           },
      })

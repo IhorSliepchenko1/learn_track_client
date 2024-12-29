@@ -195,9 +195,9 @@ export const CourseId = () => {
               ))
             }
           </div>
+          <AddLessons isOpen={isOpen} onClose={onClose} />
         </div>
       )}
-      <AddLessons isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
